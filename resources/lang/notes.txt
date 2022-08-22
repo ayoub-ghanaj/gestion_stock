@@ -1,0 +1,106 @@
+0:deleted
+1:add cargo
+2:add and rem cargo
+3:add and rem emp -> rankups
+4:admin -> rankups
+
+
+
+
+DELIMITER $$
+
+CREATE TRIGGER make_gain_create
+AFTER INSERT
+ON cargo FOR EACH ROW
+BEGIN
+    IF new.cargo_count > 0 THEN
+        INSERT INTO gains(cargo_id, counter, gain_status) VALUES(new.id, new.cargo_count, '1');
+    END IF;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+
+CREATE TRIGGER make_gain_update
+AFTER UPDATE
+ON cargo FOR EACH ROW
+BEGIN
+    IF new.cargo_count > old.cargo_count THEN
+        INSERT INTO gains(cargo_id, counter, gain_status) VALUES(new.id, (new.cargo_count-old.cargo_count), '1');
+    END IF;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER make_bills_insert
+BEFORE INSERT
+ON bills FOR EACH ROW
+BEGIN
+SET @val = 0;
+SELECT cargo_count INTO @val FROM cargo WHERE id = new.cargo_id LIMIT 1;
+    IF @val >= new.counter THEN
+     update cargo set cargo_count = cargo_count - new.counter  where id = new.cargo_id ;
+     ELSE
+     SIGNAL SQLSTATE '66420' SET MESSAGE_TEXT = 'Warning: the cargo selected don\'t have enough stock ';
+    END IF;
+END$$
+DELIMITER ;
+
+
+
+
+user log in see garages
+open grage see rank
+and cargos
+add cargo
+open cargo
+see bills and gains
+bills pack in bills
+
+check db stock >0
+
+ALTER TABLE cargo ADD CHECK (cargo_count >= 0);
+
+
+DELIMITER $$
+CREATE TRIGGER make_bills_insert
+BEFORE INSERT
+ON bills FOR EACH ROW
+BEGIN
+SET @val = 0;
+SELECT cargo_count INTO @val FROM cargo WHERE id = new.cargo_id LIMIT 1;
+    IF new.counter > @val THEN
+     update cargo set cargo_count = cargo_count - new.counter  where id = new.cargo_id ;
+     ELSE
+     SIGNAL SQLSTATE '66420' SET MESSAGE_TEXT = 'Warning: the cargo selected don\'t have enough stock ';
+    END IF;
+END$$
+DELIMITER ;
+
+right list of compnys by new
+
+
+drop TRIGGER make_bills_insert;
+DELIMITER $$
+CREATE TRIGGER make_bills_insert
+BEFORE INSERT
+ON bills FOR EACH ROW
+BEGIN
+SET @val = 0;
+SELECT cargo_count INTO @val FROM cargo WHERE id = new.cargo_id LIMIT 1;
+    IF @val >= new.counter THEN
+     update cargo set cargo_count = cargo_count - new.counter  where id = new.cargo_id ;
+     ELSE
+     SIGNAL SQLSTATE '66420' SET MESSAGE_TEXT = 'Warning: the cargo selected don\'t have enough stock ';
+    END IF;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER make_gains_insert
+BEFORE INSERT
+ON gains FOR EACH ROW
+BEGIN
+   update cargo set cargo_count = cargo_count + new.counter  where id = new.cargo_id ;
+END$$
+DELIMITER ;
