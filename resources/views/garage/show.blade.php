@@ -221,7 +221,7 @@
               </select>
           </div>
           <div class="input-group margtop15">
-            <input id="search-input"  type="text" class="form-control user-search" placeholder="Search username" style="height: inherit;">
+            <input id="search-input"  type="text" class="form-control user-search" placeholder="Search username" autofocus  style="height: inherit;">
             <input id="search-input" hidden type="text" class="form-control user-id" name="user_id" value="" >
             <input id="search-input" hidden type="text" class="form-control " name="garage_id" value="{{$garage->id}}">
             <div class="dropdown-menu usersllist userls goup" aria-labelledby="usersdown">

@@ -26,7 +26,7 @@ class garageController extends Controller
     }
 
     public function indexapi(Request $request ) {
-            return json_encode(['garages' => garage::joinedata($request->id)]);
+            return json_encode(['garages' => garage::joinedataapi($request->id)]);
     }
 
     public function show(garage $garage) {

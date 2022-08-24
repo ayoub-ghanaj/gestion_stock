@@ -26,6 +26,15 @@ class garage extends Model
             ->get();
         return $users;
     }
+    public function joinedataapi($user){
+        $users = DB::table('garage')
+            ->join('links', 'links.garage_id', '=', 'garage.id')
+            ->join('users', 'users.id', '=', 'links.user_id')
+            ->select('links.*', 'garage.*','users.name')
+            ->where([['users.id', '=', "$user"],['garage.status','!=' , '0']])
+            ->get();
+        return $users;
+    }
     public function getusers($garage){
         $users = DB::table('garage')
             ->join('links', 'links.garage_id', '=', 'garage.id')
