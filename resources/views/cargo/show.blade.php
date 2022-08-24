@@ -2,7 +2,7 @@
 @section('content')
 <div class="container-fluid py-4">
     <div class="row">
-      <div class="row mt-4">
+      <div class="row mt-4 padri0">
 
 
         <div class="col">
@@ -33,7 +33,7 @@
                   <img  src="{{$cargo[0]->cargo_logo ? asset( $cargo[0]->cargo_logo) : asset('/assets/img/default-garage.png')}}"  alt="">
                   <div class="mato margtop25">{{$cargo[0]->cargo_name}}</div>
                   <div class="input-group mato margtop25">
-                    <input type="number"  value="{{$cargo[0]->cargo_count}}" min="0" class="form-control mato numberole" name="" required>
+                    <input type="number"  value="{{$cargo[0]->cargo_count}}" min="0" max="2147483647" class="form-control mato numberole" name="" required>
                   </div>
                   <div class="mato margtop25 maxis" max="{{$cargo[0]->cargo_count}}" >{{$cargo[0]->cargo_price}}$</div>
                   <div class="btn btn-dark margtop15 updatecount">update</div>
@@ -43,9 +43,9 @@
           </div>
         </div>
       </div>
-      <div class="row my-4">
-        <div class="col">
-          <div class="card">
+      <div class="row my-4 downbelow padri0">
+        <div class="col padri0">
+          <div class="card ">
             <div class="card-header pb-0">
               <div class="row">
                 <div class="col-lg-6 col-7">
@@ -55,7 +55,7 @@
             </div>
             <div class="card-body px-0 pb-2">
               <div class="table-responsive crotab">
-                <table class="table align-items-center mb-0 ">
+                <table class="table align-items-center mb-0  ">
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cargo</th>
@@ -139,9 +139,8 @@
             Swal.fire({
                         title: 'take from cargo',
                         html: `
-                        <form   action="/operation" method="POST" enctype="multipart/form-data" class="minuscarg">
+                        <form   action="/operation" method="POST" enctype="multipart/form-data" class="minuscarg forum4">
                         @csrf
-                        <form action="">
                         <div class="input-group margtop15">
                             <div class="input-group-prepend">
                             <span class="input-group-text" id=""> Take Amount</span>
@@ -151,7 +150,7 @@
                             <input type="text"  class="form-control" name="type" hidden value="take">
                         </div>
                         <div class="modal-footer margtop15">
-                            <button type="submit" class="btn btn-dark">Confirm</button>
+                            <button type="submit" class="btn btn-dark submiti1">Confirm</button>
                             </div>
                         </form>
                                 `,
@@ -174,7 +173,9 @@
                                 $(".numberoleminus").val(1);
                             }
                             counter = val ;
-                            e.currentTarget.submit();
+                            if( !($(".numberoleminus").val() <=0)){
+                                 e.currentTarget.submit();
+                             }
                         });
                         $(".numberoleminus").keyup(()=>{
                             let val = $(".numberoleminus").val();
@@ -198,25 +199,36 @@
                             }
                             counter = val ;
                         });
+                        $(".submiti1").click(function() {
+                            $(this).attr('disabled','disabled');
+                            $(".forum4").submit();
+                        });
 
         })
         $(".added").click(()=>{
+            if(((2147483647- parseInt(max) )== 0)){
+                                    Swal.fire({
+                                        title :'Error you reached max',
+                                        text : 'you reached the max stock input',
+                                        icon: 'error'
+                                    })
+
+                                }else{
             Swal.fire({
                         title: 'add to cargo',
                         html: `
-                        <form   action="/operation" method="POST" enctype="multipart/form-data">
+                        <form   action="/operation" method="POST" enctype="multipart/form-data" class="minuscarg forum3">
                         @csrf
-                        <form action="">
                         <div class="input-group margtop15">
                             <div class="input-group-prepend">
                             <span class="input-group-text" id=""> ADD Amount</span>
                             </div>
-                            <input type="number" class="form-control numberole" value="1" name="ammount"  style="height: inherit;">
+                            <input type="number" class="form-control numberole numberoleminus223" value="1" name="ammount"  style="height: inherit;">
                             <input type="text"  class="form-control" name="cargo_id" hidden value="{{$cargo[0]->id}}">
                             <input type="text"  class="form-control" name="type" hidden value="add">
                         </div>
                         <div class="modal-footer margtop15">
-                            <button type="submit" class="btn btn-dark">Confirm</button>
+                            <button type="submit" class="btn btn-dark submiti2">Confirm</button>
                             </div>
                         </form>
                                 `,
@@ -227,28 +239,85 @@
 
                         }
                         });
+                        $('.minuscarg').submit(function(e){
+                            e.preventDefault();
+                            let val = $(".numberoleminus223").val();
+                            if(parseInt(val) >=  (2147483647- parseInt(max)) ){
+                                    $(".numberoleminus223").val((2147483647-parseInt(max)))
+                            }else if( parseInt(val) < 1){
+                                $(".numberoleminus223").val(1)
+                            }else if( `${$(".numberoleminus223").val()}`.length == 0){
+                                $(".numberoleminus223").val(1);
+                            }
+                            counter = val ;
+                            if( !($(".numberoleminus223").val() <=0)){
+                                 e.currentTarget.submit();
+                             }
+                        });
+                        $(".numberoleminus223").keyup(()=>{
+                            let val = $(".numberoleminus223").val();
+                            if(parseInt(val) >=  (2147483647- parseInt(max)) ){
+                                $(".numberoleminus223").val((2147483647-parseInt(max)));
+                                if((parseInt(val) =  (2147483647- parseInt(max))) && ((2147483647- parseInt(max) )== 0)){
+                                    Swal.fire({
+                                        title :'Error you reached max',
+                                        text : 'you reached the max stock input',
+                                        icon: 'error'
+                                    })
+                                }
+                            }else if( parseInt(val) < 1){
+                                $(".numberoleminus223").val(1)
+                            }else if( `${$(".numberoleminus223").val()}`.length == 0){
+                                $(".numberoleminus223").val(1);
+                            }
+                            counter = val ;
+                        });
+                        $(".numberoleminus223").change(()=>{
+                            let val = $(".numberoleminus223").val();
+                            if(parseInt(val) >=  (2147483647- parseInt(max)) ){
+                                $(".numberoleminus223").val((2147483647-parseInt(max)));
+                            }else if(parseInt(val) <=0){
+                                $(".numberoleminus223").val(1)
+                            }else if( `${$(".numberoleminus223").val()}`.length == 0){
+                                $(".numberoleminus223").val(1);
+                            }
+                            counter = val ;
+                        });
+                        $(".submiti2").click(function() {
+                            $(this).attr('disabled','disabled');
+                            $(".forum3").submit();
+                        });
+                    }
         })
         $(".updatecount").click(()=>{
             let val = $(".numberole").val();
             if( parseInt(val) > parseInt(max)){
+                $(".numberoleminus223").val((2147483647-parseInt(max)));
+                if(((2147483647- parseInt(max) )== 0)){
+                                    Swal.fire({
+                                        title :'Error you reached max',
+                                        text : 'you reached the max stock input',
+                                        icon: 'error'
+                                    })
+
+                                }else{
                 let added = parseInt(val) - parseInt(max) ;
                 Swal.fire({
                             title: 'add to cargo',
                             html: `
-                            <form   action="/operation" method="POST" enctype="multipart/form-data">
+                            <form   action="/operation" method="POST" enctype="multipart/form-data" class="minuscarg forum2">
                             @csrf
-                            <form action="">
                             <div class="input-group margtop15">
                                 <div class="input-group-prepend">
                                 <span class="input-group-text" id=""> ADD Amount</span>
                                 </div>
-                                <input type="number" class="form-control numberole" value="${added}" name="ammount"  style="height: inherit;">
+                                <input type="number" class="form-control numberole numberoleminus223" value="${added}" name="ammount"  style="height: inherit;">
                                 <input type="text"  class="form-control" name="cargo_id" hidden value="{{$cargo[0]->id}}">
                                 <input type="text"  class="form-control" name="type" hidden value="add">
                             </div>
                             <div class="modal-footer margtop15">
-                                <button type="submit" class="btn btn-dark">Confirm</button>
-                                </div>
+                                <button type="submit" class="btn btn-darksubmiti3">Confirm</button>
+                            </div>
                             </form>
                                     `,
                             showCancelButton: false,
@@ -258,6 +327,59 @@
 
                             }
                             });
+
+                            if(parseInt(val) >=  (2147483647- parseInt(max)) ){
+                                $(".numberoleminus223").val((2147483647-parseInt(max)));
+                            }
+                            $('.minuscarg').submit(function(e){
+                            e.preventDefault();
+                            let val = $(".numberoleminus223").val();
+                            if(parseInt(val) >=  (2147483647- parseInt(max)) ){
+                                $(".numberoleminus223").val((2147483647-parseInt(max)));
+                            }else if ( parseInt(val) < 1){
+                                $(".numberoleminus223").val(1)
+                            }else if( `${$(".numberoleminus223").val()}`.length == 0){
+                                $(".numberoleminus223").val(1);
+                            }
+                            counter = val ;
+                            if( !($(".numberoleminus223").val() <=0)){
+                                 e.currentTarget.submit();
+                             }
+                        });
+                        $(".numberoleminus223").keyup(()=>{
+                            let val = $(".numberoleminus223").val();
+                            if(parseInt(val) >=  (2147483647- parseInt(max)) ){
+                                $(".numberoleminus223").val((2147483647-parseInt(max)));
+                            }else if ( parseInt(val) < 1){
+                                $(".numberoleminus223").val(1)
+                            }else if( `${$(".numberoleminus223").val()}`.length == 0){
+                                $(".numberoleminus223").val(1);
+                            }
+                            counter = val ;
+                        });
+                        $(".numberoleminus223").change(()=>{
+                            let val = $(".numberoleminus223").val();
+                            if(parseInt(val) >=  (2147483647- parseInt(max)) ){
+                                $(".numberoleminus223").val((2147483647-parseInt(max)));
+                                if(parseInt(val) =  (2147483647- parseInt(max)) && parseInt(val) == 0){
+                                    Swal.fire({
+                                        title :'Error you reached max',
+                                        text : 'you reached the max stock input',
+                                        icon: 'error'
+                                    })
+                                }
+                            }else if(parseInt(val) <=0){
+                                $(".numberoleminus223").val(1)
+                            }else if( `${$(".numberoleminus223").val()}`.length == 0){
+                                $(".numberoleminus223").val(1);
+                            }
+                            counter = val ;
+                        });
+                        $(".submiti3").click(function() {
+                                $(this).attr('disabled','disabled');
+                                $(".forum2").submit();
+                            });
+                        }
             }else if ( parseInt(val) == parseInt(max)){
             }else{
                 let minus = parseInt(max)  - parseInt(val) ;
@@ -265,9 +387,8 @@
             Swal.fire({
                         title: 'take from cargo',
                         html: `
-                        <form  action="/operation" method="POST" enctype="multipart/form-data" class="minuscarg2">
+                        <form  action="/operation" method="POST" enctype="multipart/form-data" class="minuscarg2 forum1">
                         @csrf
-                        <form action="">
                         <div class="input-group margtop15">
                             <div class="input-group-prepend">
                             <span class="input-group-text" id=""> Take Amount</span>
@@ -277,8 +398,8 @@
                             <input type="text"  class="form-control" name="type" hidden value="take">
                         </div>
                         <div class="modal-footer margtop15">
-                            <button type="submit" class="btn btn-dark">Confirm</button>
-                            </div>
+                            <button type="submit" class="btn btn-dark submiti4">Confirm</button>
+                        </div>
                         </form>
                                 `,
                         showCancelButton: false,
@@ -299,7 +420,9 @@
                                 $(".numberoleminus").val(1);
                             }
                             counter = val ;
-                            e.currentTarget.submit();
+                             if( !($(".numberoleminus").val() <=0)){
+                                 e.currentTarget.submit();
+                             }
                         });
                         $(".numberoleminus2").keyup(()=>{
                             let val = $(".numberoleminus2").val();
@@ -322,6 +445,10 @@
                                 $(".numberoleminus2").val(1);
                             }
                             counter = val ;
+                        });
+                        $(".submiti4").click(function() {
+                            $(this).attr('disabled','disabled');
+                            $(".forum1").submit();
                         });
             }
         })

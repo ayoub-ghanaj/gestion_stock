@@ -107,7 +107,7 @@
     <script>
         var auname = {!! json_encode(Auth::user(), JSON_HEX_TAG) !!};
         var augara = {!! json_encode($garage, JSON_HEX_TAG) !!};
-        var widthy = 0;
+        var widthy = 40;
     </script>
 <script>
             function seekga(value) {
@@ -137,7 +137,7 @@
                     `);
                 }
         })
-        $(".main-content").css("max-width","100%");
+        $(".main-content").css("max-width","calc(100% - 40px)");
         $(".navbar").css("max-width","100%");
         function usersseek(value) {
         return new Promise((resolve, reject) => {
@@ -163,7 +163,7 @@
                     Swal.fire({
                         title: 'ADD Cargo',
                         html: `
-                        <form action="/garage/add" method="POST" enctype="multipart/form-data">
+                        <form action="/garage/add" method="POST" enctype="multipart/form-data" class="forum2" >
                         @csrf
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -188,7 +188,7 @@
                                 <input type="text" class="form-control" name="garage_id" value="{{$garage->id}}" hidden required >
                               </div>
                               <div class="modal-footer margtop15">
-                                  <button type="submit" class="btn btn-dark">Save</button>
+                                  <button type="submit" class="btn btn-dark submiti1">Save</button>
                                 </div>
                                 </form>
                                 `,
@@ -199,13 +199,17 @@
 
                         }
                         });
+                        $(".submiti1").click(function() {
+                            $(this).attr('disabled','disabled');
+                            $(".forum2").submit();
+                        });
 
         })
     $(".invite").click(()=>{
         Swal.fire({
                         title: 'invite user',
                         html: `
-                        <form  id="form-add-user" action="/garage/invite" method="POST" enctype="multipart/form-data">
+                        <form  id="form-add-user" action="/garage/invite" method="POST" enctype="multipart/form-data" class="forum1">
             @csrf
           <div class="input-group">
               <div class="input-group-prepend">
@@ -237,8 +241,8 @@
               </div>
               <input type="text" class="form-control" name="title" value="co-owner" required style="height: inherit;">
           </div>
-          <div class="modal-footer">
-              <button type="submit" class="btn btn-dark">Save</button>
+          <div class="modal-footer margtop15">
+              <button type="submit" class="btn btn-dark submiti2">Save</button>
             </div>
         </form>
                                 `,
@@ -248,6 +252,10 @@
                         preConfirm: () => {
 
                         }
+                        });
+                        $(".submiti2").click(function() {
+                            $(this).attr('disabled','disabled');
+                            $(".forum1").submit();
                         });
     })
 

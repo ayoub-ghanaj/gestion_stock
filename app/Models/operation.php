@@ -29,8 +29,9 @@ class operation extends Model
             $operations = DB::table('operation')
             ->join('users', 'users.id', '=', 'operation.user_id')
             ->join('cargo', 'cargo.id', '=', 'operation.cargo_id')
+            ->join('garage', 'garage.id', '=', 'cargo.garage_id')
             ->select('operation.*','users.name','users.id','users.image','cargo.cargo_name','cargo.cargo_logo')
-            ->where([['garage.id', '=', $garage],['cargo.cargo_status' ,'=' ,'1']])
+            ->where([['cargo.id', '=', $cargo],['cargo.cargo_status' ,'=' ,'1']])
             ->orderBy('operation.id', 'DESC')
             ->get();
         return $operations;

@@ -44,12 +44,16 @@ class cargoController extends Controller
     public function show(cargo $cargo){
         $users = cargo::getusers($cargo->id);
         $users =  json_decode(json_encode($users), true);
+        if(Auth::check()){
         if(in_array(["id"=> Auth::user()->id],$users,true) && $cargo->cargo_status != '0'){
             return view('cargo.show', [
                 'user' => Auth::user(),
                 'cargo' => cargo::onedata($cargo->id),
                 'operations' => operation::get_cargo_opr($cargo->id),
             ]);
+        }else{
+            return redirect('/garages');
+        }
         }else{
             return redirect('/garages');
         }

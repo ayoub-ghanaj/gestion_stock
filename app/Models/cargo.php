@@ -27,7 +27,7 @@ class cargo extends Model
     }
     public function getusers($cargo){
         $users = DB::table('cargo')
-            ->join('garage', 'garage.id', '=', 'cargo.id')
+            ->join('garage', 'garage.id', '=', 'cargo.garage_id')
             ->join('links', 'links.garage_id', '=', 'garage.id')
             ->join('users', 'users.id', '=', 'links.user_id')
             ->select('users.id')
@@ -37,7 +37,7 @@ class cargo extends Model
     }
     public function getadminsusers($cargo){
         $users = DB::table('cargo')
-            ->join('garage', 'garage.id', '=', 'cargo.id')
+            ->join('garage', 'garage.id', '=', 'cargo.garage_id')
             ->join('links', 'links.garage_id', '=', 'garage.id')
             ->join('users', 'users.id', '=', 'links.user_id')
             ->select('users.id')

@@ -16,6 +16,7 @@ class links extends Model
                         ->join('users', 'users.id', '=', 'links.user_id')
                         ->select('links.*','users.name','users.email','users.image')
                         ->where('links.garage_id', '=', "$garage")
+                        ->orderBy('created_at','desc')
                         ->get();
         return $links;
     }
@@ -24,6 +25,7 @@ class links extends Model
                         ->join('users', 'users.id', '=', 'links.user_id')
                         ->select('links.*','users.name','users.email','users.image')
                         ->where([['links.garage_id', '=', "$garage"],['links.user_id','=' ,$user]])
+                        ->orderBy('created_at','desc')
                         ->get();
         return $links;
     }

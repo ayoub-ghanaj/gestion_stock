@@ -111,7 +111,7 @@
             Swal.fire({
                         title: 'add garage',
                         html: `
-                        <form action="/garages" method="POST" enctype="multipart/form-data">
+                        <form action="/garages" method="POST" enctype="multipart/form-data" class="forum2">
                             @csrf
                   <div class="input-group">
                       <div class="input-group-prepend">
@@ -129,7 +129,7 @@
                       <input type="file" class="form-control" name="logo"  accept=".jpg, .png, .jpeg, .gif">
                     </div>
                   <div class="modal-footer">
-                    <input type="submit" class="btn btn-dark margtop25" value="ADD">
+                    <input type="submit" class="btn btn-dark margtop25 submiti1" value="ADD">
                     </div>
                   </form>
                                 `,
@@ -140,18 +140,22 @@
 
                         }
                         });
+                        $(".submiti1").click(function() {
+                            $(this).attr('disabled','disabled');
+                            $(".forum2").submit();
+                        });
                     })
         $(".pfp").click(()=>{
             Swal.fire({
                         title: 'change profile picture',
                         html: `
-                        <form action="/profile" method="POST" enctype="multipart/form-data">
+                        <form action="/profile" method="POST" enctype="multipart/form-data" class="forum1">
                             @csrf
                     <div class="input-group">
                       <input type="file" class="form-control" name="logo"  accept=".jpg, .png, .jpeg, .gif">
                     </div>
                   <div class="modal-footer">
-                    <input type="submit" class="btn btn-dark margtop25" value="Confirm">
+                    <input type="submit" class="btn btn-dark margtop25 submiti2" value="Confirm">
                     </div>
                   </form>
                                 `,
@@ -160,6 +164,10 @@
                         focusConfirm: false,
                         preConfirm: () => {}
                     })
+                    $(".submiti2").click(function() {
+                            $(this).attr('disabled','disabled');
+                            $(".forum1").submit();
+                        });
         })
     });
   </script>

@@ -32,15 +32,19 @@ class garageController extends Controller
     public function show(garage $garage) {
         $users = garage::getusers($garage->id);
         $users =  json_decode(json_encode($users), true);
-        if(in_array(["id"=> Auth::user()->id],$users,true) && $garage->status != 0){
-            return view('garage.show', [
-                'user' => Auth::user(),
-                'garage' => $garage,
-                'link' => links::user_data($garage->id ,Auth::user()->id ),
-                'links' => links::data($garage->id),
-                'cargos' => cargo::data($garage->id),
-                'operations' => operation::get_gara_opr($garage->id),
-            ]);
+        if(Auth::check()){
+            if(in_array(["id"=> Auth::user()->id],$users,true) && $garage->status != 0){
+                return view('garage.show', [
+                    'user' => Auth::user(),
+                    'garage' => $garage,
+                    'link' => links::user_data($garage->id ,Auth::user()->id ),
+                    'links' => links::data($garage->id),
+                    'cargos' => cargo::data($garage->id),
+                    'operations' => operation::get_gara_opr($garage->id),
+                ]);
+            }else{
+                return redirect('/garages');
+            }
         }else{
             return redirect('/garages');
         }
@@ -72,28 +76,37 @@ class garageController extends Controller
     public function invite(Request $request) {
         $users = garage::getadminsusers(request()->get('garage_id'));
         $users =  json_decode(json_encode($users), true);
-        if(in_array(["id"=> Auth::user()->id],$users,true)){
-        $formFields = $request->validate([
-            'garage_id' => 'required',
-            'user_id' => 'required',
-            'rank' => 'required',
-            'role' => 'required',
-            'title' => 'required',
-        ]);
+        if(Auth::check()){
+            if(in_array(["id"=> Auth::user()->id],$users,true)){
+            $formFields = $request->validate([
+                'garage_id' => 'required',
+                'user_id' => 'required',
+                'rank' => 'required',
+                'role' => 'required',
+                'title' => 'required',
+            ]);
 
-        links::create($formFields);
+            links::create($formFields);
+            }
+        }else{
+            return redirect('/garages');
         }
+
         return redirect()->back();
     }
     // delete
     public function destroy(Request $request) {
         $users = garage::getadminsusers(request()->get('garage_id'));
         $users =  json_decode(json_encode($users), true);
-        if(in_array(["id"=> Auth::user()->id],$users,true)){
-            $garage_id = request()->get('garage_id');
-            $link = garage::find($garage_id);
-            $formFields["status"] = "0";
-            $link->update($formFields);
+        if(Auth::check()){
+            if(in_array(["id"=> Auth::user()->id],$users,true)){
+                $garage_id = request()->get('garage_id');
+                $link = garage::find($garage_id);
+                $formFields["status"] = "0";
+                $link->update($formFields);
+            }
+        }else{
+            return redirect('/garages');
         }
         return back()->with('message', 'garage deleted successfully!');
     }

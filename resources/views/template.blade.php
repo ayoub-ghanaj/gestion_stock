@@ -56,7 +56,7 @@
     <!-- Page Content  -->
   <div id="content" class="">
 
-    <nav class="navbar navbar-light bg-light   " style="max-width: calc(100% - 53px); min-height: 80px; max-height: 80px ; ">
+    <nav class="navbar navbar-light bg-light   " style="max-width: calc(100% - 53px); min-height: 80px; max-height: 80px ;margin: 0; ">
       <div class="container-fluid">
 
         <button type="button" id="sidebarCollapse2" class="btn btn-primary navrg" style="display: none;     position: absolute;">
@@ -65,10 +65,10 @@
         </button>
         <div class=" avatar-group mt-2 aliright" id="navbarSupportedContent">
             <div class="dropdown">
-            <a  class="avatar avatar-m rounded-circle dropdown-toggle" data-bs-placement="bottom" title="{{Auth::user()->name}}"  role="button" data-bs-toggle="dropdown" id="navbarDropdown22">
+            <a  class="avatar avatar-m rounded-circle dropdown-toggle" data-bs-placement="bottom" title="{{Auth::user()->name}}"  role="button" data-bs-toggle="dropdown" id="navbarDropdown22" >
                 <img src="{{Auth::user()->image? asset( Auth::user()->image) : asset('/assets/img/default-garage.png')}}" alt="{{Auth::user()->name}}">
             </a>
-            <ul class="dropdown-menu droper" aria-labelledby="navbarDropdown22">
+            <ul class="dropdown-menu droper lif8f9fa" aria-labelledby="navbarDropdown22" style="background-color: #00000000; box-shadow: 0px 0px;">
                 <li><a class="dropdown-item texcol" href="/profile">Account</a></li>
                 <li>
                     <form action="/logout" method="post">
@@ -101,7 +101,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="{{ asset('assets/js/soft-ui-dashboard.min.js?v=1.0.6')}}"></script>
-  
+
   <script>
     $(document).ready(function () {
         $('#sidebarCollapse2').on('click', function () {
