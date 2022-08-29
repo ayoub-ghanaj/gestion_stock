@@ -104,3 +104,30 @@ BEGIN
    update cargo set cargo_count = cargo_count + new.counter  where id = new.cargo_id ;
 END$$
 DELIMITER ;
+
+
+
+      <Files ~ "\.inc$">
+        Order Allow,Deny
+        Deny from All
+    </Files>
+    RewriteEngine On
+    RedirectMatch 404 /\..*$
+    RedirectMatch 404 /*\.json$
+    RedirectMatch 404 /*\.example$
+    RedirectMatch 404 /*\.md$
+    #RedirectMatch 404 /*\.php$
+    RedirectMatch 404 /*\.blade.php$
+    RedirectMatch 404 ^/storage/framework/?$
+    RedirectMatch 404 /*\.log$
+    RedirectMatch 404 ^\/storage\/framework\/sessions\/\w*$
+    RedirectMatch 404 ^\/storage\/framework\/views\/\w*$
+    RedirectMatch 404 /*\.mix.js$
+    RedirectMatch 404 /*\.xml$
+    RedirectMatch 404 /*\.yaml$
+    RedirectMatch 404 /*\.lock$
+    RedirectMatch 404 /artisan$
+    RedirectMatch 404 /*\.sql$
+    #RedirectMatch 404 /*\.js$
+    #RedirectMatch 404 /*\.css$
+    

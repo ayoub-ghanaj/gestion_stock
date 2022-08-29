@@ -13,10 +13,18 @@ class userController extends Controller
         return json_encode(['users' => User::apidata($request->name,$request->garage)]);
     }
     public function login(){
-        return view('login.login');
+        if(!Auth::check()){
+            return view('login.login');
+        }else{
+            return redirect('/');
+        }
     }
     public function signup(){
+        if(!Auth::check()){
         return view('signup.signup');
+        }else{
+            return redirect('/');
+        }
     }
     public function store(Request $request){
         $formFields = $request->validate([

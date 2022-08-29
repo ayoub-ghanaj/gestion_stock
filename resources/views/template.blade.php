@@ -16,7 +16,7 @@
   <link href="{{ asset('assets/css/nucleo-svg.css')}}" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-  <link href="{{ asset('assets/css/nucleo-svg.css" rel="stylesheet')}}" />
+  <link href="{{ asset('assets/css/nucleo-svg.css')}}" rel="stylesheet" />
   <!-- CSS Files -->
   <link rel="stylesheet" href="{{ asset('assets/css/style.css')}}">
   <link id="pagestyle" href="{{ asset('assets/css/soft-ui-dashboard.css?v=1.0.6')}}" rel="stylesheet" />
@@ -104,6 +104,13 @@
 
   <script>
     $(document).ready(function () {
+
+        // if($(window).width() < 992){
+        //         $(".main-content").css("max-width","calc(100%)");
+        // }else{
+        //          $(".main-content").css("max-width","calc(100% -40px)");
+        // }
+
         $('#sidebarCollapse2').on('click', function () {
             $(".navrg").hide();
         $('#sidebar').toggleClass('active');

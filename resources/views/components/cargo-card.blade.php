@@ -1,6 +1,6 @@
 @props(['cargo','rank'])
 <div class="card cardi border border-dark margtop15 paddy" style="width:280px ; border: none !important;box-shadow: 0px 0px 2px 0px #0000007d;">
-    <img class="card-img-top" src="{{$cargo->cargo_logo ? asset( $cargo->cargo_logo) : asset('/assets/img/default-garage.png')}}" alt="Card image" style=" width:100%">
+    <img class="card-img-top widthrr" src="{{$cargo->cargo_logo ? asset( $cargo->cargo_logo) : asset('/assets/img/default-garage.png')}}" alt="Card image" style=" width:100%">
     <div class="card-body ccenter">
       <h4 class="card-title">{{$cargo->cargo_name}}</h4>
       <p class="card-text">{{$cargo->cargo_count}}</p>

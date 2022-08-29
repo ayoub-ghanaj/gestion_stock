@@ -61,7 +61,13 @@ class garageController extends Controller
 
         if($request->hasFile('logo')) {
             $file = $request->file('logo');
+            if(!getimagesize($file)){
+                return redirect()->back();
+            }
             $extension = $file->getClientOriginalExtension();
+            if($extension != "jpg" && $extension != "png" && $extension != "jpeg" && $extension != "gif"){
+                return redirect()->back();
+            }
             $fileName = time().'.'.$extension;
             $path = public_path().'/storage/garages_logos';
             $uplaod = $file->move($path,$fileName);

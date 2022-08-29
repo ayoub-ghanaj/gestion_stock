@@ -1,6 +1,6 @@
 @props(['garage'])
 <div class="card cardi border border-dark" style="width:280px">
-    <img class="card-img-top" src="{{$garage->garage_logo ? asset($garage->garage_logo) : asset('/assets/img/default-garage.png')}}" alt="Card image" style="width:100%">
+    <img class="card-img-top widthrr" src="{{$garage->garage_logo ? asset($garage->garage_logo) : asset('/assets/img/default-garage.png')}}" alt="Card image" style="width:100%">
     <div class="card-body ccenter">
       <h4 class="card-title"> {{$garage->garage_name}}</h4>
       <p class="card-text">{{$garage->title}}</p>
