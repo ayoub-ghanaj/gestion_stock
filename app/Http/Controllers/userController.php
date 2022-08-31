@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class userController extends Controller
 {
     public function index(Request $request) {
-        return json_encode(['users' => User::apidata($request->name,$request->garage)]);
+        return json_encode(['users' => User::apidata($request->name,$request->wearhouse)]);
     }
     public function login(){
         if(!Auth::check()){

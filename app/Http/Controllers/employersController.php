@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\links;
+use App\Models\employers;
 use Illuminate\Http\Request;
 
-class linksController extends Controller
+class employersController extends Controller
 {
     public function store(Request $request) {
         $formFields = $request->validate([
-            'garage_id' => 'required',
+            'wearhouse_id' => 'required',
             'user_id' => 'required',
             'title' => 'required',
             'rank' => 'required',
@@ -23,19 +23,19 @@ class linksController extends Controller
             $file = $request->file('logo');
             $extension = $file->getClientOriginalExtension();
             $fileName = time().'.'.$extension;
-            $path = public_path().'/storage/garages_logos';
+            $path = public_path().'/storage/wearhouses_logos';
             $uplaod = $file->move($path,$fileName);
-            $formFields['garage_logo'] = "storage/garages_logos/".$fileName;
+            $formFields['wearhouse_logo'] = "storage/wearhouses_logos/".$fileName;
         }
 
-        links::create($formFields);
+        employers::create($formFields);
 
         return redirect()->back();
     }
 
     public function update(Request $request) {
         $linkid = request()->get('link_id');
-        $link = links::find($linkid);
+        $link = employers::find($linkid);
         $formFields = $request->validate([
             'title' => 'required',
             'rank' => 'required',
@@ -49,7 +49,7 @@ class linksController extends Controller
     }
     public function destroy(Request $request) {
         $linkid = request()->get('link_id');
-        $link = links::find($linkid);
+        $link = employers::find($linkid);
         $link->delete();
         return back()->with('message', 'profile updated successfully!');
     }

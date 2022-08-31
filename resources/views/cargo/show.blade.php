@@ -9,7 +9,7 @@
           <div class="card z-index-2">
             <div class="card-header pb-0">
               <h6>Cargo overview</h6>
-              <div class="go-right-2">
+              {{-- <div class="go-right-2">
                 <!-- Button trigger modal -->
     <button type="button" class="btn btn-dark big added" id="add-garage" >
       +
@@ -26,7 +26,7 @@
         </button>
 
 <!-- Modal -->
-            </div>
+            </div> --}}
             <div class="card-body p-3">
               <div class="chart cargo-chart">
                 <div class="card cargo-card">
@@ -36,7 +36,7 @@
                     <input type="number"  value="{{$cargo[0]->cargo_count}}" min="0" max="2147483647" class="form-control mato numberole" name="" required>
                   </div>
                   <div class="mato margtop25 maxis" max="{{$cargo[0]->cargo_count}}" >{{$cargo[0]->cargo_price}}$</div>
-                  <div class="btn btn-dark margtop15 updatecount">update</div>
+                  {{-- <div class="btn btn-dark margtop15 updatecount">update</div> --}}
                 </div>
               </div>
             </div>

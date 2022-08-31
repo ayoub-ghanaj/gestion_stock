@@ -7,7 +7,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png')}}">
   <link rel="icon" type="image/png" href="{{ asset('assets/img/default-garage.png')}}">
   <title>
-    garages
+    wearhouses
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -34,14 +34,14 @@
                 <h1 class="txtalic"><a  id="sidebarCollapse" class="mrgauto pointer fa fa-bars sandwich" style=""></a></h1>
         <ul class="list-unstyled components mb-5">
         <li class="active">
-            <a href="/garages"><span class="fa fa-home"></span> Home</a>
+            <a href="/wearhouses"><span class="fa fa-home"></span> Home</a>
         </li>
         <li>
             <a href="/profile"><span class="fa fa-user"></span> Profile</a>
         </li>
         <li>
             <a class="dropdown-toggle"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" >
-                <span class="fa fa-folder "></span>Garages
+                <span class="fa fa-folder "></span>wearhouses
             </a>
             <ul class="dropdown-menu dropdown-menuy lily dropper-list " aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item dropdown-itemy " href="#">Account</a></li>

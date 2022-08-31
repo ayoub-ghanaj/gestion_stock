@@ -15,8 +15,8 @@ class CreateCargoTable extends Migration
     {
         Schema::create('cargo', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('garage_id');
-            $table->foreign('garage_id')->references('id')->on('garage')->onDelete('cascade');
+            $table->unsignedBigInteger('wearhouse_id');
+            $table->foreign('wearhouse_id')->references('id')->on('wearhouse')->onDelete('cascade');
             $table->string('cargo_name');
             $table->integer('cargo_count')->default(0);
             $table->float('cargo_price');

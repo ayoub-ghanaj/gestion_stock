@@ -8,10 +8,10 @@
         {{-- <div class="card" style="max-width: calc(100% - 61px);"> --}}
         <div class="card z-index-2 " >
           <div class="card-header pb-0 ">
-              <h6 class="h-inline font "> GARAGES Overview</h6>
+              <h6 class="h-inline font "> wearhouses Overview</h6>
               <div class="go-right">
                        <!-- Button trigger modal -->
-                <button type="button" class="btn btn-dark add-garage modalshow" id="add-garage" >
+                <button type="button" class="btn btn-dark add-wearhouse modalshow" id="add-wearhouse" >
                     ADD
                 </button>
             </div>
@@ -21,10 +21,10 @@
             <div class="chart">
               <!-- chart -->
               <div class="scrolling-wrapper">
-                @unless(count($garages) == 0)
-                @foreach ( $garages as $garage )
-                    @if ($garage->status == 1)
-                    <x-garages-card :garage="$garage" />
+                @unless(count($wearhouses) == 0)
+                @foreach ( $wearhouses as $wearhouse )
+                    @if ($wearhouse->status == 1)
+                    <x-wearhouses-card :wearhouse="$wearhouse" />
                     @endif
                 @endforeach
                 @else
@@ -49,7 +49,7 @@
     function seek(value) {
         return new Promise((resolve, reject) => {
           $.ajax({
-            url: "http://localhost:8000/api/garages",
+            url: "http://localhost:8000/api/wearhouses",
             type: 'GET',
             data: {
               id: value,
@@ -67,11 +67,11 @@
         $(".navbar").css("max-width","100%");
       seek(auname.id).then((data)=>{
             $('.lily').empty();
-            let garages = JSON.parse(data);
-            garages = garages.garages;
-            for(let i = 0 ; i < garages.length ; i++ ){
+            let wearhouses = JSON.parse(data);
+            wearhouses = wearhouses.wearhouses;
+            for(let i = 0 ; i < wearhouses.length ; i++ ){
                 $('.lily').append(`
-                    <li><a class="dropdown-item " href="/${garages[i].id}">${garages[i].garage_name}</a></li>
+                    <li><a class="dropdown-item " href="/${wearhouses[i].id}">${wearhouses[i].wearhouse_name}</a></li>
                 `);
             }
       })
@@ -80,21 +80,21 @@
       })
       $(".modalshow").click(()=>{
           Swal.fire({
-                      title: 'add garage',
+                      title: 'add wearhouse',
                       html: `
-                      <form action="/garages" method="POST" enctype="multipart/form-data" class="forum2">
+                      <form action="/wearhouses" method="POST" enctype="multipart/form-data" class="forum2">
                           @csrf
                 <div class="input-group">
                     <div class="input-group-prepend">
-                      <span class="input-group-text" id="">Garage name</span>
+                      <span class="input-group-text" id="">wearhouse name</span>
                     </div>
-                    <input type="text" class="form-control" name="garage_name" required style="height: inherit;">
+                    <input type="text" class="form-control" name="wearhouse_name" required style="height: inherit;">
                   </div>
                   <div class="input-group margtop15">
                     <div class="input-group-prepend">
-                      <span class="input-group-text" id="">Garage title</span>
+                      <span class="input-group-text" id="">wearhouse title</span>
                     </div>
-                    <input type="text" class="form-control" name="garage_title" style="height: inherit;">
+                    <input type="text" class="form-control" name="wearhouse_title" style="height: inherit;">
                   </div>
                   <div class="input-group margtop15">
                     <input type="file" class="form-control" name="logo"  accept=".jpg, .png, .jpeg, .gif" style="height: inherit;">

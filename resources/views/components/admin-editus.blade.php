@@ -3,7 +3,7 @@
     <td>
       <div class="d-flex px-2 py-1">
         <div>
-          <img src="{{$data->image ? asset( $data->image) : asset('/assets/img/default-garage.png')}}" class="avatar avatar-sm me-3" alt="{{$data->name}}">
+          <img src="{{$data->image ? asset( $data->image) : asset('/assets/img/default-wearhouse.png')}}" class="avatar avatar-sm me-3" alt="{{$data->name}}">
         </div>
         <div class="d-flex flex-column justify-content-center">
           <h6 class="mb-0 text-sm">{{$data->name}}</h6>
@@ -35,7 +35,7 @@
             <button class="btn btn-dark text-secondary font-weight-bold text-m edlist{{$data->id}}">
                 Edit
             </button>
-            <form action="/garage/lindelete" method="POST" enctype="multipart/form-data" style="display: inline">
+            <form action="/wearhouse/lindelete" method="POST" enctype="multipart/form-data" style="display: inline">
                 @csrf
                 <button type="submit" class="btn btn-dark text-secondary font-weight-bold text-m list{{$data->id}} " id="list" style="cursor: pointer;"> Delete </button>
                 <input type="text" name="link_id" hidden value="{{$data->id}}">
@@ -50,7 +50,7 @@
                     Swal.fire({
                         title: 'Edite user',
                         html: `
-                        <form action="/garage/linupdate" method="POST" enctype="multipart/form-data">
+                        <form action="/wearhouse/linupdate" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @php
                                 $darank = "`+rank+`";

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\bills;
 use App\Models\cargo;
 use App\Models\operation;
 use Illuminate\Http\Request;
@@ -15,10 +16,10 @@ class cargoController extends Controller
             'cargo_count' => 'required',
             'cargo_name' => 'required',
             'cargo_price' => 'required',
-            'garage_id' => 'required',
+            'wearhouse_id' => 'required',
         ]);
 
-        $formFields['cargo_price'] = '1';
+//        $formFields['cargo_price'] = '1';
 
         if($request->hasFile('logo')) {
             $file = $request->file('logo');
@@ -36,13 +37,21 @@ class cargoController extends Controller
         }
 
         $formFields_opera['user_id'] = auth()->id();
-        $formFields_opera['description']= 'Initial Stock';
         $formFields_opera['type']= 'creation';
         $formFields_opera['ammount']= $formFields['cargo_count'];
         //dd($formFields);
         //dd($formFields_opera);
         $cargo = cargo::create($formFields);
         $formFields_opera['cargo_id']= $cargo->id;
+        $formFields_bill["user_id"]= Auth::user()->id;
+        $formFields_bill["title"]= "initial stock";
+        $formFields_bill["description"]= "-";
+        $formFields_bill["wearhouse_id"]= $formFields["wearhouse_id"];
+        $formFields_bill["company_name"]= "-";
+        $formFields_bill["bill_price"]= $formFields["cargo_price"] * $formFields["cargo_count"]   ;
+        $formFields_bill["type"]= "ADD";
+        $bill = bills::create($formFields_bill);
+        $formFields_opera['bill_id']= $bill->id;
         operation::create($formFields_opera);
         return redirect()->back();
     }
@@ -58,10 +67,10 @@ class cargoController extends Controller
                 'operations' => operation::get_cargo_opr($cargo->id),
             ]);
         }else{
-            return redirect('/garages');
+            return redirect('/wearhouses');
         }
         }else{
-            return redirect('/garages');
+            return redirect('/wearhouses');
         }
     }
 
@@ -74,6 +83,6 @@ class cargoController extends Controller
             $formFields["cargo_status"] = "0";
             $cargo->update($formFields);
         }
-        return back()->with('message', 'garage deleted successfully!');
+        return back()->with('message', 'wearhouse deleted successfully!');
     }
 }

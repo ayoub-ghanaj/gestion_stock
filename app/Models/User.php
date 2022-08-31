@@ -43,11 +43,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function apidata($name , $garage){
+    public function apidata($name , $wearhouse){
         $users = DB::table('users')
             ->select('users.name','users.id','users.image')
             ->where('users.name', 'LIKE', "%".$name."%")
-            ->whereNotIn('users.id', DB::table('links')->select('user_id')->where('garage_id' ,'=', $garage)->pluck('user_id')->toArray())
+            ->whereNotIn('users.id', DB::table('employers')->select('user_id')->where('wearhouse_id' ,'=', $wearhouse)->pluck('user_id')->toArray())
             ->get();
         return $users;
     }

@@ -130,4 +130,40 @@ DELIMITER ;
     RedirectMatch 404 /*\.sql$
     #RedirectMatch 404 /*\.js$
     #RedirectMatch 404 /*\.css$
-    
+
+
+    ALTER TABLE gestion_stock.operation
+  ADD COLUMN bill_id bigint(20) ,
+  ADD FOREIGN KEY fk_bill(bill_id) REFERENCES bill(id) ON DELETE CASCADE;
+
+
+
+drop TABLE bill;
+
+CREATE TABLE `bill` (
+  `id` bigint(20) UNSIGNED NOT NULL PRIMARY KEY,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `direction` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bill_price` double(8,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ;
+
+
+ALTER TABLE `cargo`
+  ADD COLUMN `user_id` bigint(20) UNSIGNED NOT NULL;
+
+
+
+
+SET FOREIGN_KEY_CHECKS=0;
+ALTER TABLE gestion_stock.`operation` ADD FOREIGN KEY (bill_id) REFERENCES bill(id);
+
+
+
+ALTER TABLE `bill`
+  ADD COLUMN `garage_id` bigint(20) UNSIGNED NOT NULL;
+
+
+ALTER TABLE gestion_stock.`bill` ADD FOREIGN KEY (garage_id) REFERENCES garage(id);

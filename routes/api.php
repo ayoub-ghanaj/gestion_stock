@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
-use App\Http\Controllers\garageController;
+use App\Http\Controllers\wearhouseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('users',[userController::class,'index'] );
-Route::get('garages',[garageController::class,'indexapi'] );
+Route::get('wearhouses',[wearhouseController::class,'indexapi'] );

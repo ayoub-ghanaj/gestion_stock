@@ -35,18 +35,18 @@
         <div class="col-12 mt-4">
           <div class="card mb-4">
             <div class="card-header pb-0 p-3">
-              <h6 class="mb-1">Garages</h6>
+              <h6 class="mb-1">wearhouses</h6>
             </div>
             <div class="card-body p-3">
               <div class="row">
-                @unless(count($garages) == 0)
-                    @foreach ( $garages as $garage )
-                        @if ($garage->status == 1)
-                        <x-profile-card :garage="$garage" />
+                @unless(count($wearhouses) == 0)
+                    @foreach ( $wearhouses as $wearhouse )
+                        @if ($wearhouse->status == 1)
+                        <x-profile-card :wearhouse="$wearhouse" />
                         @endif
                     @endforeach
                 @else
-                <p>No Garages found</p>
+                <p>No wearhouses found</p>
                 @endunless
 
                 <div class="col-xl-3 col-md-6 mb-xl-0 mb-4 modalshow">
@@ -54,7 +54,7 @@
                     <div class="card-body d-flex flex-column justify-content-center text-center">
                       <a >
                         <i class="fa fa-plus text-secondary mb-3"></i>
-                        <h5 class=" text-secondary"> New Garage </h5>
+                        <h5 class=" text-secondary"> New wearhouse </h5>
                       </a>
                     </div>
                   </div>
@@ -79,7 +79,7 @@
         function seekga(value) {
             return new Promise((resolve, reject) => {
             $.ajax({
-                url: "http://localhost:8000/api/garages",
+                url: "http://localhost:8000/api/wearhouses",
                 type: 'GET',
                 data: {
                 id: value,
@@ -95,12 +95,12 @@
         }
         seekga(auname.id).then((data)=>{
                 $('.lily').empty();
-                let garages = JSON.parse(data);
-                garages = garages.garages;
-                console.log(garages);
-                for(let i = 0 ; i < garages.length ; i++ ){
+                let wearhouses = JSON.parse(data);
+                wearhouses = wearhouses.wearhouses;
+                console.log(wearhouses);
+                for(let i = 0 ; i < wearhouses.length ; i++ ){
                     $('.lily').append(`
-                        <li><a class="dropdown-item " href="/${garages[i].id}">${garages[i].garage_name}</a></li>
+                        <li><a class="dropdown-item " href="/${wearhouses[i].id}">${wearhouses[i].wearhouse_name}</a></li>
                     `);
                 }
         })
@@ -109,21 +109,21 @@
         })
         $(".modalshow").click(()=>{
             Swal.fire({
-                        title: 'add garage',
+                        title: 'add wearhouse',
                         html: `
-                        <form action="/garages" method="POST" enctype="multipart/form-data" class="forum2">
+                        <form action="/wearhouses" method="POST" enctype="multipart/form-data" class="forum2">
                             @csrf
                   <div class="input-group">
                       <div class="input-group-prepend">
-                        <span class="input-group-text" id="">Garage name</span>
+                        <span class="input-group-text" id="">wearhouse name</span>
                       </div>
-                      <input type="text" class="form-control" name="garage_name" style="height: inherit;" required>
+                      <input type="text" class="form-control" name="wearhouse_name" style="height: inherit;" required>
                     </div>
                     <div class="input-group margtop15">
                       <div class="input-group-prepend">
-                        <span class="input-group-text" id="">Garage title</span>
+                        <span class="input-group-text" id="">wearhouse title</span>
                       </div>
-                      <input type="text" class="form-control" name="garage_title" style="height: inherit;">
+                      <input type="text" class="form-control" name="wearhouse_title" style="height: inherit;">
                     </div>
                     <div class="input-group margtop15">
                       <input type="file" class="form-control" name="logo"  accept=".jpg, .png, .jpeg, .gif">

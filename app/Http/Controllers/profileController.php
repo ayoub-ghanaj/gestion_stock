@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\garage;
+use App\Models\wearhouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,7 +12,7 @@ class profileController extends Controller
     public function index() {
         if(Auth::check()){
             return view('profile.profile', [
-                'garages' => garage::joinedata(Auth::user()->id),
+                'wearhouses' => wearhouse::joinedata(Auth::user()->id),
                 'user_name' => Auth::user()->name,
                 'logo' => Auth::user()->image
             ]);

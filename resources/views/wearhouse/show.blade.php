@@ -11,7 +11,7 @@
               <h6 class="font">Cargos Overview </h6>
               <div class="go-right">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-dark" id="add-garage">
+                <button type="button" class="btn btn-dark" id="add-wearhouse">
                 ADD
                 </button>
               </div>
@@ -36,7 +36,7 @@
         </div>
         </div>
     </div>
-      <div class="row my-4 ">
+      {{-- <div class="row my-4 ">
         <div class="col ">
           <div class="card">
             <div class="card-header pb-0">
@@ -57,16 +57,16 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ( $operations as $operation )
+                    {{-- @foreach ( $operations as $operation )
                         <x-operation-ligne :operation="$operation" />
-                    @endforeach
+                    @endforeach - -}}
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </div> --}}
     @if ($link[0]->rank <= 2)
     <div class="row">
       <div class="col-12">
@@ -91,7 +91,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                    @foreach ( $links as $lin )
+                    @foreach ( $employers as $lin )
                     <x-admin-editus :data="$lin" :rank="$link[0]->rank"/>
                     @endforeach
                 </tbody>
@@ -106,14 +106,14 @@
   </div>
     <script>
         var auname = {!! json_encode(Auth::user(), JSON_HEX_TAG) !!};
-        var augara = {!! json_encode($garage, JSON_HEX_TAG) !!};
+        var augara = {!! json_encode($wearhouse, JSON_HEX_TAG) !!};
         var widthy = 40;
     </script>
 <script>
             function seekga(value) {
             return new Promise((resolve, reject) => {
             $.ajax({
-                url: "http://localhost:8000/api/garages",
+                url: "http://localhost:8000/api/wearhouses",
                 type: 'GET',
                 data: {
                 id: value,
@@ -129,11 +129,11 @@
         }
         seekga(auname.id).then((data)=>{
                 $('.lily').empty();
-                let garages = JSON.parse(data);
-                garages = garages.garages;
-                for(let i = 0 ; i < garages.length ; i++ ){
+                let wearhouses = JSON.parse(data);
+                wearhouses = wearhouses.wearhouses;
+                for(let i = 0 ; i < wearhouses.length ; i++ ){
                     $('.lily').append(`
-                        <li><a class="dropdown-item " href="/${garages[i].id}">${garages[i].garage_name}</a></li>
+                        <li><a class="dropdown-item " href="/${wearhouses[i].id}">${wearhouses[i].wearhouse_name}</a></li>
                     `);
                 }
         })
@@ -146,7 +146,7 @@
             type: 'GET',
             data: {
               name: value,
-              garage: augara.id,
+              wearhouse: augara.id,
             },
             success: function (data) {
               resolve(data)
@@ -158,12 +158,17 @@
         })
       }
     $(document).ready(()=>{
-
-        $("#add-garage").click(()=>{
+        $(".lif8f9fa").prepend(`
+        <li><a class="dropdown-item texcol" href="/${augara.id}/transactions/list"> Show transactions</a></li>
+        `)
+        $(".lif8f9fa").prepend(`
+        <li><a class="dropdown-item texcol" href="/${augara.id}/transactions"> Make a transaction</a></li>
+        `)
+        $("#add-wearhouse").click(()=>{
                     Swal.fire({
                         title: 'ADD Cargo',
                         html: `
-                        <form action="/garage/add" method="POST" enctype="multipart/form-data" class="forum2" >
+                        <form action="/wearhouse/add" method="POST" enctype="multipart/form-data" class="forum2" >
                         @csrf
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -185,7 +190,7 @@
                                   <span class="input-group-text" id="">cargo price</span>
                                 </div>
                                 <input type="number" class="form-control" name="cargo_price" required style="height: inherit;">
-                                <input type="text" class="form-control" name="garage_id" value="{{$garage->id}}" hidden required >
+                                <input type="text" class="form-control" name="wearhouse_id" value="{{$wearhouse->id}}" hidden required >
                               </div>
                               <div class="modal-footer margtop15">
                                   <button type="submit" class="btn btn-dark submiti1">Save</button>
@@ -209,7 +214,7 @@
         Swal.fire({
                         title: 'invite user',
                         html: `
-                        <form  id="form-add-user" action="/garage/invite" method="POST" enctype="multipart/form-data" class="forum1">
+                        <form  id="form-add-user" action="/wearhouse/invite" method="POST" enctype="multipart/form-data" class="forum1">
             @csrf
           <div class="input-group">
               <div class="input-group-prepend">
@@ -223,7 +228,7 @@
           <div class="input-group margtop15">
             <input id="search-input"  type="text" class="form-control user-search" placeholder="Search username" autofocus  style="height: inherit;">
             <input id="search-input" hidden type="text" class="form-control user-id" name="user_id" value="" >
-            <input id="search-input" hidden type="text" class="form-control " name="garage_id" value="{{$garage->id}}">
+            <input id="search-input" hidden type="text" class="form-control " name="wearhouse_id" value="{{$wearhouse->id}}">
             <div class="dropdown-menu usersllist userls goup" aria-labelledby="usersdown">
               <!-- search suggestions-->
               </div>

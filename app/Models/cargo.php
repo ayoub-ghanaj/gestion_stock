@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class cargo extends Model
 {
-    protected $fillable = ['id','cargo_count', 'cargo_name','garage_id','cargo_price','cargo_price','cargo_logo','cargo_status'];
+    protected $fillable = ['id','cargo_count', 'cargo_name','wearhouse_id','cargo_price','cargo_price','cargo_logo','cargo_status'];
     protected $table = 'cargo';
     use HasFactory;
-    public function data($garage){
+    public function data($wearhouse){
         $cargos = DB::table('cargo')
             ->select('cargo.*')
-            ->where('cargo.garage_id', '=', "$garage")
+            ->where('cargo.wearhouse_id', '=', "$wearhouse")
             ->get();
         return $cargos;
     }
@@ -27,9 +27,9 @@ class cargo extends Model
     }
     public function getusers($cargo){
         $users = DB::table('cargo')
-            ->join('garage', 'garage.id', '=', 'cargo.garage_id')
-            ->join('links', 'links.garage_id', '=', 'garage.id')
-            ->join('users', 'users.id', '=', 'links.user_id')
+            ->join('wearhouse', 'wearhouse.id', '=', 'cargo.wearhouse_id')
+            ->join('employers', 'employers.wearhouse_id', '=', 'wearhouse.id')
+            ->join('users', 'users.id', '=', 'employers.user_id')
             ->select('users.id')
             ->where('cargo.id', '=', "$cargo")
             ->get();
@@ -37,11 +37,11 @@ class cargo extends Model
     }
     public function getadminsusers($cargo){
         $users = DB::table('cargo')
-            ->join('garage', 'garage.id', '=', 'cargo.garage_id')
-            ->join('links', 'links.garage_id', '=', 'garage.id')
-            ->join('users', 'users.id', '=', 'links.user_id')
+            ->join('wearhouse', 'wearhouse.id', '=', 'cargo.wearhouse_id')
+            ->join('employers', 'employers.wearhouse_id', '=', 'wearhouse.id')
+            ->join('users', 'users.id', '=', 'employers.user_id')
             ->select('users.id')
-            ->where([['cargo.id', '=', "$cargo"],["links.rank" , "<=" , "2"]])
+            ->where([['cargo.id', '=', "$cargo"],["employers.rank" , "<=" , "2"]])
             ->get();
         return $users;
     }
